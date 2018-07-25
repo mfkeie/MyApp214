@@ -44,7 +44,7 @@ public interface AcademyApi {
     @GET("user")
     Single<User> auth (@Header("Authorization") String credentials);
 
-    @GET("album/{id}/comments")
+    @GET("albums/{id}/comments")
     Single<List<Comment>> getAlbumComments(@Path("id") int id);
 
 }

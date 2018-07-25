@@ -1,4 +1,4 @@
-package com.elegion.myfirstapplication.comment;
+package com.elegion.myfirstapplication.comments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class CommentsFragment extends Fragment implements SwipeRefreshLayout.OnR
     private Album mAlbum;
 
     @NonNull
-    private final CommentAdapter mCommentAdapter = new CommentAdapter();
+    private final CommentsAdapter mCommentAdapter = new CommentsAdapter();
 
     public static CommentsFragment newInstance(Album album) {
         Bundle args = new Bundle();
@@ -45,13 +46,13 @@ public class CommentsFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Nullable
     @Override
     public View onCreateView(@android.support.annotation.NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fr_recycler, container, false);
+        return inflater.inflate(R.layout.fr_recycler_comments, container, false);
     }
 
     @Override
     public void onViewCreated(@android.support.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
-        mRecyclerView = view.findViewById(R.id.recycler);
-        mRefresher = view.findViewById(R.id.refresher);
+        mRecyclerView = view.findViewById(R.id.recycler_comments);
+        mRefresher = view.findViewById(R.id.refresher_comments);
         mRefresher.setOnRefreshListener(this);
         mErrorView = view.findViewById(R.id.errorView);
     }
@@ -110,7 +111,7 @@ public class CommentsFragment extends Fragment implements SwipeRefreshLayout.OnR
                             mCommentAdapter.addData(comments, true);
                         },
                         throwable -> {
-
+                            Log.d("LOG_TAG", throwable.getMessage());
                         });
     }
 

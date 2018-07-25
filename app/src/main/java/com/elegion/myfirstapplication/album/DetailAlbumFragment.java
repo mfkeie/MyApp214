@@ -1,21 +1,25 @@
 package com.elegion.myfirstapplication.album;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.elegion.myfirstapplication.ApiUtils;
 import com.elegion.myfirstapplication.App;
 import com.elegion.myfirstapplication.R;
+import com.elegion.myfirstapplication.comments.CommentsFragment;
 import com.elegion.myfirstapplication.db.MusicDao;
 import com.elegion.myfirstapplication.model.Album;
 import com.elegion.myfirstapplication.model.AlbumSong;
@@ -28,18 +32,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DetailAlbumFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String ALBUM_KEY = "ALBUM_KEY";
-
-    private Toolbar toolbar;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefresher;
     private View mErrorView;
     private Album mAlbum;
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @NonNull
     private final SongsAdapter mSongsAdapter = new SongsAdapter();
@@ -52,6 +48,31 @@ public class DetailAlbumFragment extends Fragment implements SwipeRefreshLayout.
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.songs_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.comments_item:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainer, CommentsFragment.newInstance(mAlbum))
+                        .addToBackStack(CommentsFragment.class.getSimpleName())
+                        .commit();
+                break;
+        }
+        return true;
     }
 
     @Nullable
@@ -127,4 +148,15 @@ public class DetailAlbumFragment extends Fragment implements SwipeRefreshLayout.
     private MusicDao getMusicDao() {
         return ((App) getActivity().getApplication()).getDatabase().getMusicDao();
     }
+
+    /*public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.comments_item:
+                Toast.makeText(getActivity(), "Хрен", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                break;
+        }
+
+    }*/
 }

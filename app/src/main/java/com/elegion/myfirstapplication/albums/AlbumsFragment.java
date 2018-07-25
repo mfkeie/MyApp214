@@ -32,6 +32,7 @@ public class AlbumsFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @NonNull
     private final AlbumsAdapter mAlbumAdapter = new AlbumsAdapter(album -> {
+        //При нажатии на альбоме, переходим к альбому (списку песен альбома)
         getFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, DetailAlbumFragment.newInstance(album))
                 .addToBackStack(DetailAlbumFragment.class.getSimpleName())

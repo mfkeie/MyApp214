@@ -1,4 +1,4 @@
-package com.elegion.myfirstapplication.comment;
+package com.elegion.myfirstapplication.comments;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,26 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.elegion.myfirstapplication.R;
-import com.elegion.myfirstapplication.album.SongsHolder;
 import com.elegion.myfirstapplication.model.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentHolder> {
+public class CommentsAdapter extends RecyclerView.Adapter<CommentsHolder> {
 
     @NonNull
     private final List<Comment> mComments = new ArrayList<>();
 
     @Override
-    public CommentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CommentsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.list_item_comment, parent, false);
-        return new CommentHolder(view);
+        return new CommentsHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(CommentHolder holder, int position) {
+    public void onBindViewHolder(CommentsHolder holder, int position) {
         Comment comment = mComments.get(position);
         holder.bind(comment);
     }
