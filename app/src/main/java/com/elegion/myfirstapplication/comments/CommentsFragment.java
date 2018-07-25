@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.elegion.myfirstapplication.ApiUtils;
 import com.elegion.myfirstapplication.App;
@@ -29,6 +30,7 @@ public class CommentsFragment extends Fragment implements SwipeRefreshLayout.OnR
     private SwipeRefreshLayout mRefresher;
     private View mErrorView;
     private Album mAlbum;
+    private RelativeLayout mComments;
 
     @NonNull
     private final CommentsAdapter mCommentAdapter = new CommentsAdapter();
@@ -55,6 +57,7 @@ public class CommentsFragment extends Fragment implements SwipeRefreshLayout.OnR
         mRefresher = view.findViewById(R.id.refresher_comments);
         mRefresher.setOnRefreshListener(this);
         mErrorView = view.findViewById(R.id.errorView);
+        mComments = view.findViewById(R.id.rl_comments);
     }
 
     @Override
@@ -107,11 +110,14 @@ public class CommentsFragment extends Fragment implements SwipeRefreshLayout.OnR
                 .subscribe(
                         comments -> {
                             mErrorView.setVisibility(View.GONE);
+                            mComments.setVisibility(View.VISIBLE);
                             mRecyclerView.setVisibility(View.VISIBLE);
                             mCommentAdapter.addData(comments, true);
                         },
                         throwable -> {
-                            Log.d("LOG_TAG", throwable.getMessage());
+                            mErrorView.setVisibility(View.VISIBLE);
+                            mRecyclerView.setVisibility(View.GONE);
+                            mComments.setVisibility(View.GONE);
                         });
     }
 
