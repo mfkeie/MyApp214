@@ -26,20 +26,18 @@
 
             <EditText
                 android:id="@+id/et_comment"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
+                android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/button_send"
                 android:layout_alignParentBottom="true"
-                android:ems="10"
-                android:gravity="start"
-                android:inputType="textMultiLine"
-                android:lines="2"
-                android:maxLines="5"/>
+                android:gravity="start" />
 
             <Button
                 android:id="@+id/button_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Send"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"/>
@@ -49,7 +47,7 @@
 
 
         <include
-            layout="@layout/error_view"
+            layout="@layout/error_comments_view"
             android:visibility="gone" />
 
 

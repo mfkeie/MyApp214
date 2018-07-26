@@ -8,9 +8,11 @@ import com.elegion.myfirstapplication.model.User;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -47,4 +49,9 @@ public interface AcademyApi {
     @GET("albums/{id}/comments")
     Single<List<Comment>> getAlbumComments(@Path("id") int id);
 
+    @GET("comments/{id}")
+    Single<Comment> getComment(@Path("id") int id);
+
+    @POST("comments")
+    Observable<Response<Comment>> comments(@Body Comment comment);
 }

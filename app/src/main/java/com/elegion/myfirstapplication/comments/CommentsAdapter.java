@@ -44,4 +44,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsHolder> {
         //Collections.sort(mComments);
         notifyDataSetChanged();
     }
+
+    public void addData(Comment data) {
+        mComments.add(data);
+        notifyDataSetChanged();
+    }
 }

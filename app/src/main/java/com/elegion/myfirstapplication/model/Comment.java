@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Comment implements Serializable {
@@ -70,5 +71,23 @@ public class Comment implements Serializable {
 
     public void setTimestamp(String timestamp) {
         this.mTimestamp = timestamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return mId == comment.mId &&
+                mAlbumId == comment.mAlbumId &&
+                Objects.equals(mAuthor, comment.mAuthor) &&
+                Objects.equals(mText, comment.mText) &&
+                Objects.equals(mTimestamp, comment.mTimestamp);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(mId, mAlbumId, mAuthor, mText, mTimestamp);
     }
 }
