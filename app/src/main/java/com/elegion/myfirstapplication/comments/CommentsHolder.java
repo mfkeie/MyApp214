@@ -16,9 +16,9 @@ public class CommentsHolder extends RecyclerView.ViewHolder {
     private TextView mAuthor;
     private TextView mText;
     private TextView mTimeStamp;
-    DateFormat df_in = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-    DateFormat df_out_full = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-    DateFormat df_out_short = new SimpleDateFormat("HH:mm:ss");
+    DateFormat df_datetime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+    DateFormat df_date = new SimpleDateFormat("dd.MM.yyyy");
+    DateFormat df_time = new SimpleDateFormat("HH:mm:ss");
 
     public CommentsHolder(View itemView) {
         super(itemView);
@@ -28,14 +28,14 @@ public class CommentsHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Comment item) {
-        mAuthor.setText(/*item.getId() + ": " + */item.getAuthor());
+        mAuthor.setText(item.getAuthor());
         mText.setText(item.getText());
         try {
-            Date date = df_in.parse(item.getTimestamp());
+            Date date = df_datetime.parse(item.getTimestamp());
             if((new Date()).getTime() - date.getTime() < 1000*60*60*24)
-                mTimeStamp.setText(df_out_short.format(date));
+                mTimeStamp.setText(df_time.format(date));
             else
-                mTimeStamp.setText(df_out_full.format(date));
+                mTimeStamp.setText(df_date.format(date));
         } catch (Exception ex) {
             //Если не разберем, то выводим что получили
             mTimeStamp.setText(item.getTimestamp());

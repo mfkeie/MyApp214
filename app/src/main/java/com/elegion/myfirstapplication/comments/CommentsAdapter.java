@@ -39,9 +39,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsHolder> {
         if (isRefreshed) {
             mComments.clear();
         }
-
         mComments.addAll(data);
-        //Collections.sort(mComments);
         notifyDataSetChanged();
     }
 

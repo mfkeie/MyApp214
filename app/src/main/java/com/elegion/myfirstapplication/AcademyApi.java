@@ -34,15 +34,6 @@ public interface AcademyApi {
     @GET("albums/{id}")
     Single<Album> getAlbum(@Path("id") int id);
 
-  /*  @GET("songs")
-    Call<List<Song>> getSongs();
-
-    @GET("songs/{id}")
-    Call<Song> getSong(@Path("id") int id);
-
-    @GET("user")
-    Single<User> auth (@Header("Authorization") OkHttpClient okHttpClient);*/
-
     @GET("user")
     Single<User> auth (@Header("Authorization") String credentials);
 
